@@ -7,6 +7,8 @@
   let error = "";
   let devices = [];
   let selectedDevice;
+  let closed = 0;
+
   async function _populateCameraDevices() {
     let videoDevices = await Quagga.CameraAccess.enumerateVideoDevices(),
       selectedDeviceLabel = Quagga.CameraAccess.getActiveStreamLabel();
@@ -18,7 +20,6 @@
       (dev) => dev.label === selectedDeviceLabel
     );
   }
-
   onMount(() => {
     status = "Preparing scan...";
     Quagga.init(
@@ -108,6 +109,10 @@
       Quagga.stop();
     };
   });
+  function close() {
+    Quagga.stop();
+    closed = 1;
+  }
 </script>
 
 <style>
@@ -131,10 +136,20 @@
   div[type="button"] {
     border: 1px black solid;
     background-color: pink;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  div[type="button"]:active {
+    border: 2px black solid;
+    background-color: rgb(241, 167, 179);
   }
 </style>
 
-<div class="wrap">
+<div class="wrap" style="display: {closed ? 'none' : 'block'};">
   <p>{status}</p>
 
   <p class="error">{error}</p>
@@ -153,5 +168,5 @@
 
   <br />
 
-  <div type="button" on:click={() => dispatch('cancel')}>Stop scanning</div>
+  <div type="button" on:click={close}>Stop scanning</div>
 </div>
