@@ -1,6 +1,13 @@
 <script>
   import Quagga from "./svelte/Quagga.svelte";
   import SearchButton from "./svelte/SearchButton.svelte";
+  import { dataStore } from "./stores/dataStore.js";
+
+  let title;
+
+  dataStore.subscribe(value => {
+    title = value.data.title;
+  });
 </script>
 
 <style>
@@ -31,6 +38,7 @@
     <p>
       <Quagga />
     </p>
+    {#if title}<p>{title}</p>{/if}
     <div class="SearchButton">
       <SearchButton />
     </div>
