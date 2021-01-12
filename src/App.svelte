@@ -1,44 +1,37 @@
 <script>
   import Quagga from "./svelte/Quagga.svelte";
+  import SearchButton from "./svelte/SearchButton.svelte";
 </script>
 
 <style>
+  /*
+  #224957
+  #A3DDF0
+  #54B6D6
+  #4E585C
+  #408AA3
+  */
   :global(body) {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
+    position: relative;
+    background-color: #224957;
   }
   .App {
     text-align: center;
   }
-  .App p {
-    margin: 0.4rem;
-  }
-
-  .App-header {
-    background-color: #f9f6f6;
-    color: #333;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-  }
-
-  @keyframes App-logo-spin {
-    from {
-      transform: scale(1);
-    }
-    to {
-      transform: scale(1.06);
-    }
+  .SearchButton {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
   }
 </style>
 
 <div class="App">
-  <header class="App-header">
     <p>
       <Quagga />
     </p>
-  </header>
+    <div class="SearchButton">
+      <SearchButton />
+    </div>
 </div>
