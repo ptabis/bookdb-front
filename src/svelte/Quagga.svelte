@@ -2,6 +2,7 @@
   import { createEventDispatcher } from "svelte";
   import Quagga from "quagga";
   import { quaggaClosed } from "../stores/quaggaStore.js";
+  import { dataStore } from "../stores/dataStore.js";
 
   let dispatch = createEventDispatcher();
   let devices = [];
@@ -59,16 +60,12 @@
       }
     );
 
-    Quagga.onDetected(result => {
+    Quagga.onDetected(async result => {
       let foundEan = result.codeResult.code;
-      // Quagga.stop();
-      console.log(`Found EAN: ${foundEan}`);
-      setTimeout(() =>
-        dispatch("ean", {
-          ean: foundEan,
-          imageSrc: Quagga.canvas.dom.image.toDataURL()
-        })
-      );
+      const res = await fetch(`${import.meta.env.SNOWPACK_PUBLIC_REST_URL}/book/${foundEan}`);
+      const json = await res.json();
+      dataStore.set(json);
+      quaggaClosed.set(1);
     });
   }
   function close() {
