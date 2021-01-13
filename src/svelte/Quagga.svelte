@@ -1,6 +1,6 @@
 <script>
   import { createEventDispatcher } from "svelte";
-  import Quagga from "quagga";
+  import Quagga from "@ericblade/quagga2";
   import { quaggaClosed } from "../stores/quaggaStore.js";
   import { dataStore } from "../stores/dataStore.js";
 
