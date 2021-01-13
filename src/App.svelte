@@ -1,13 +1,6 @@
 <script>
-  import Quagga from "./svelte/Quagga.svelte";
-  import SearchButton from "./svelte/SearchButton.svelte";
-  import { dataStore } from "./stores/dataStore.js";
-
-  let title;
-
-  dataStore.subscribe(value => {
-    title = value.data.title;
-  });
+  import BookInfo from "./svelte/BookInfo.svelte";
+  import Search from "./svelte/Search.svelte";
 </script>
 
 <style>
@@ -27,19 +20,9 @@
   .App {
     text-align: center;
   }
-  .SearchButton {
-    position: fixed;
-    bottom: 10px;
-    right: 10px;
-  }
 </style>
 
 <div class="App">
-    <p>
-      <Quagga />
-    </p>
-    {#if title}<p>{title}</p>{/if}
-    <div class="SearchButton">
-      <SearchButton />
-    </div>
+    <BookInfo />
+    <Search />
 </div>
